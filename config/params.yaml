@@ -1,0 +1,22 @@
+controller_joint_names:
+  - joint_1
+  - joint_2
+  - joint_3
+  - joint_4
+  - joint_5
+  - joint_6
+
+#ros bridge topics, note the topic message types should be the ROS2 topic message types
+topics:
+  -
+    topic: /joint_states  
+    type: sensor_msgs/msg/JointState  
+    queue_size: 1  
+  -
+    topic: /joint_path_command
+    type: trajectory_msgs/msg/JointTrajectory 
+    queue_size: 1  
+  -
+    topic: /tf 
+    type: tf2_msgs/msg/TFMessage 
+    queue_size: 1  

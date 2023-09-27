@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>abb_interface</name>
+  <version>0.0.0</version>
+  <description>A simple package for interfacing with an ABB IRB 2400</description>
+
+  <maintainer email="tyler.marr@swri.org">Tyler Marr</maintainer>
+  <license>BSD</license>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>abb_irb2400_support</depend>
+  <depend>abb_driver</depend>
+
+
+  <export>
+
+  </export>
+</package>

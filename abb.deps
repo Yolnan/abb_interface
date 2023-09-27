@@ -1,0 +1,9 @@
+repositories:
+  abb:
+    type: git
+    url: https://github.com/ros-industrial/abb.git
+    version: dcb72869f722f7eac2be3c536f4af0ee776d131b
+  abb_driver:
+    type: git
+    url: https://github.com/ros-industrial/abb_driver.git
+    version: 1.4.0

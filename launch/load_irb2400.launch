@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find abb_interface)/urdf/abb_only_workcell.xacro'" />
+  <!-- The semantic description that corresponds to the URDF -->
+  <param name="robot_description_semantic" textfile="$(find abb_interface)/config/abb_only_workcell.srdf" />
+
+  <rosparam command="load" file="$(find abb_interface)/config/params.yaml" />
+
+  <arg name="robot_ip" default="192.168.125.1"/>
+  <arg name="J23_coupled" default="true" doc="If true, compensate for J2-J3 parallel linkage" />
+  <arg name="sim_robot" default="true" />
+  <arg name="rviz" default="false" />
+
+
+  <group if="$(arg sim_robot)">
+    <!-- Launch industrial_robot_simulator-->
+    <include file="$(find industrial_robot_simulator)/launch/robot_interface_simulator.launch" />
+    
+    <!-- <node pkg="industrial_robot_simulator" type="industrial_robot_simulator" name="industrial_robot_simulator" output="screen" />
+
+    <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action" output="screen"/> -->
+  </group>
+  
+  <!-- Launch robot driver-->
+  <!-- <group unless="$(arg sim_robot)"> -->
+    <include file="$(find abb_driver)/launch/robot_interface.launch">
+      <arg name="robot_ip"    value="$(arg robot_ip)" />
+      <arg name="J23_coupled" value="$(arg J23_coupled)" />
+    </include>
+  <!-- </group> -->
+
+  <group if="$(arg rviz)">
+    <!-- Launch the robot_state_publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+      <!-- <param name="robot_description" value="$(optenv robot_description)"/> -->
+    </node>
+
+    <!--Launch rviz-->
+    <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find abb_interface)/config/abb_only.rviz"/>
+  </group>
+</launch>
